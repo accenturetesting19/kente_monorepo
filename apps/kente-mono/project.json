@@ -1,0 +1,89 @@
+{
+  "name": "kente-mono",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/kente-mono/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/kente-mono",
+        "index": "apps/kente-mono/src/index.html",
+        "baseHref": "/",
+        "main": "apps/kente-mono/src/main.tsx",
+        "tsConfig": "apps/kente-mono/tsconfig.app.json",
+        "assets": [
+          "apps/kente-mono/src/favicon.ico",
+          "apps/kente-mono/src/assets"
+        ],
+        "styles": ["apps/kente-mono/src/styles.scss"],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/kente-mono/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/kente-mono/src/environments/environment.ts",
+              "with": "apps/kente-mono/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "kente-mono:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "kente-mono:build:development"
+        },
+        "production": {
+          "buildTarget": "kente-mono:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/kente-mono/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "kente-mono:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/kente-mono/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

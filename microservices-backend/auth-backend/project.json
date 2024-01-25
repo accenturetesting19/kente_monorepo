@@ -1,0 +1,61 @@
+{
+  "name": "auth-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "microservices-backend/auth-backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/microservices-backend/auth-backend",
+        "main": "microservices-backend/auth-backend/src/main.ts",
+        "tsConfig": "microservices-backend/auth-backend/tsconfig.app.json",
+        "assets": ["microservices-backend/auth-backend/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "microservices-backend/auth-backend/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+
+        },
+        "production": {
+          
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "auth-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "auth-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "auth-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["microservices-backend/auth-backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "microservices-backend/auth-backend/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
