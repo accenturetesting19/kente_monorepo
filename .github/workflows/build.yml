@@ -29,6 +29,12 @@ jobs:
         with:
           fetch-depth: 0
       # Cache node_modules
+      - name: Cypress run with env
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx nx run-many --target=serve --all
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:9229, http://localhost:4000'
       - uses: actions/setup-node@v3
         with:
           node-version: 20
@@ -41,4 +47,4 @@ jobs:
       #- run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t build --base=master
       - run: npx nx affected -t test --base=master
-      - run: npx nx run-many --target=serve --all
+     # - run: npx nx run-many --target=serve --all
