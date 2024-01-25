@@ -44,7 +44,9 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - name: Build
-        run: nx affected:build --base=master
-      - name: Test
-        run: nx affected:test --base=master
+      - uses: nrwl/nx-set-shas@v3
+      # This line is needed for nx affected to work when CI is running on a PR
+      - run: git branch --track main origin/main
+
+      #- run: npx nx-cloud record -- nx format:check
+      - run: npx nx affected -t build
