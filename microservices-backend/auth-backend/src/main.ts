@@ -33,5 +33,6 @@ async function bootstrap() {
   await app.startAllMicroservices();
   await client.listen(3000);
   Logger.log("Auth microservice running");
+  Logger.log("Auth microservice ");
 }
 bootstrap();

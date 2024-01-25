@@ -133,11 +133,11 @@ exports.AuthLibraryModule = void 0;
 const tslib_1 = __webpack_require__(3);
 const common_1 = __webpack_require__(4);
 const jwt_1 = __webpack_require__(10);
-const auth_controller_1 = __webpack_require__(13);
-const auth_service_1 = __webpack_require__(14);
-const auth_repository_1 = __webpack_require__(15);
-const db_connect_1 = __webpack_require__(19);
-const config_1 = __webpack_require__(21);
+const auth_controller_1 = __webpack_require__(11);
+const auth_service_1 = __webpack_require__(12);
+const auth_repository_1 = __webpack_require__(13);
+const db_connect_1 = __webpack_require__(17);
+const config_1 = __webpack_require__(19);
 let AuthLibraryModule = class AuthLibraryModule {
 };
 exports.AuthLibraryModule = AuthLibraryModule;
@@ -171,9 +171,7 @@ exports.AuthLibraryModule = AuthLibraryModule = tslib_1.__decorate([
 module.exports = require("@nestjs/jwt");
 
 /***/ }),
-/* 11 */,
-/* 12 */,
-/* 13 */
+/* 11 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -183,7 +181,7 @@ exports.microservicesController = void 0;
 const tslib_1 = __webpack_require__(3);
 const common_1 = __webpack_require__(4);
 const microservices_1 = __webpack_require__(6);
-const auth_service_1 = __webpack_require__(14);
+const auth_service_1 = __webpack_require__(12);
 let microservicesController = class microservicesController {
     constructor(auth) {
         this.auth = auth;
@@ -217,7 +215,7 @@ exports.microservicesController = microservicesController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -274,13 +272,13 @@ exports.authService = authService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthRepo = void 0;
-const auth_entity_1 = __webpack_require__(16);
+const auth_entity_1 = __webpack_require__(14);
 exports.AuthRepo = [
     {
         provide: 'AUTH_REPO',
@@ -290,15 +288,15 @@ exports.AuthRepo = [
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.authEntity = void 0;
 const tslib_1 = __webpack_require__(3);
-const sequelize_1 = __webpack_require__(17);
-const sequelize_typescript_1 = __webpack_require__(18);
+const sequelize_1 = __webpack_require__(15);
+const sequelize_typescript_1 = __webpack_require__(16);
 let authEntity = class authEntity extends sequelize_typescript_1.Model {
 };
 exports.authEntity = authEntity;
@@ -324,27 +322,27 @@ exports.authEntity = authEntity = tslib_1.__decorate([
 
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ ((module) => {
 
 module.exports = require("sequelize");
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ ((module) => {
 
 module.exports = require("sequelize-typescript");
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DbConnector = void 0;
-const sequelize_typescript_1 = __webpack_require__(18);
-const entities_1 = __webpack_require__(20);
-const config_1 = __webpack_require__(21);
+const sequelize_typescript_1 = __webpack_require__(16);
+const entities_1 = __webpack_require__(18);
+const config_1 = __webpack_require__(19);
 exports.DbConnector = [
     {
         provide: "SEQUELIZE",
@@ -375,20 +373,20 @@ exports.DbConnector = [
 
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Entities = void 0;
-const auth_entity_1 = __webpack_require__(16);
+const auth_entity_1 = __webpack_require__(14);
 exports.Entities = [
     auth_entity_1.authEntity
 ];
 
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/config");
@@ -462,6 +460,7 @@ async function bootstrap() {
     await app.startAllMicroservices();
     await client.listen(3000);
     common_1.Logger.log("Auth microservice running");
+    common_1.Logger.log("Auth microservice ");
 }
 bootstrap();
 

@@ -9,8 +9,8 @@
 // automatically serving support files with the
 // 'supportFile' configuration option.
 //
-// You can read more here:
-// https://on.cypress.io/configuration
+//You can read more here:
+ https://on.cypress.io/configuration
 // ***********************************************************
 
 // Import commands.ts using ES2015 syntax:
