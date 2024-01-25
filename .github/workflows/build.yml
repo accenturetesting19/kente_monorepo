@@ -20,17 +20,7 @@ jobs:
      steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Super-linter
-        uses: super-linter/super-linter@v5.7.2  # x-release-please-version
-        env:
-         #DEFAULT_BRANCH: development
-         VALIDATE_JAVASCRIPT_ES: true 
-         VALIDATE_TYPESCRIPT_ES: true 
-        # VALIDATE_TYPESCRIPT_STANDARD: true
-       # TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.yml
-          # To report GitHub Actions status checks
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
-
+    
   Buildartifacts:
      needs: Codelinting
      runs-on: 'ubuntu-latest'     
@@ -46,7 +36,7 @@ jobs:
       - run: npm ci
       - uses: nrwl/nx-set-shas@v3
       # This line is needed for nx affected to work when CI is running on a PR
-      - run: git branch --track main origin/main
+      - run: git branch --track master origin/master
 
       #- run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t build
