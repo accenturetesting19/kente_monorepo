@@ -14,27 +14,14 @@ permissions:
 
 jobs:
 
-  Codelinting:
-  
-     runs-on: 'ubuntu-latest'     
-     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-    
+   
   Buildartifacts:
-     needs: Codelinting
      runs-on: 'ubuntu-latest'     
      steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # Cache node_modules
-      - name: Cypress run with env
-        uses: cypress-io/github-action@v6
-        with:
-          command: npx nx run-many --target=serve --all
-          # quote the url to be safe against YML parsing surprises
-          wait-on: 'http://localhost:9229, http://localhost:4000'
+ 
       - uses: actions/setup-node@v3
         with:
           node-version: 20
@@ -45,6 +32,9 @@ jobs:
       - run: git branch --track master origin/master
 
       #- run: npx nx-cloud record -- nx format:check
-      - run: npx nx affected -t build --base=master
-      - run: npx nx affected -t test --base=master
-     # - run: npx nx run-many --target=serve --all
+      - run: npx nx affected -t build --base=master --parallel --max-parallel=3
+      - run: npx nx affected -t test --base=master  --parallel --max-parallel=2
+      - run: npx nx run-many --target=serve --all --parallel --max-parallel=2
+      - name: Clean Agents
+        if: ${{ always() }}
+        run: npx exec nx-cloud stop-all-agents
