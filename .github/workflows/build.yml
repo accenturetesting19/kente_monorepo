@@ -40,3 +40,5 @@ jobs:
 
       #- run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t build --base=master
+      - run: npx nx affected -t test --base=master
+      - run: nx run-many --target=serve --all
