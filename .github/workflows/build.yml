@@ -33,8 +33,18 @@ jobs:
 
       #- run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t build --base=master --parallel --max-parallel=3
+      - name: Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: assets-for-download
+          path: ./
       - run: npx nx affected -t test --base=master  --parallel --max-parallel=2
-      - run: npx nx run-many --target=serve --all --parallel --max-parallel=2
+    #  - run: npx nx run-many --target=serve --all --parallel --max-parallel=2
+
+      - name: Publish artifacts
+        run: npx nx affected --target=custom-publish --parallel=2 --commitid=$GITHUB_SHA
+        env:
+          NX_CLOUD_DISTRIBUTED_EXECUTION: false
       - name: Clean Agents
         if: ${{ always() }}
         run: npx exec nx-cloud stop-all-agents
